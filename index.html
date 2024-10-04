@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.">
+       <title>Paystack Integration</title>
+       <script src="https://js.paystack.co/v1/inline.js"></script>;
+   </head>
+   <body>
+       <button id="payButton">Pay Now</button>
+
+       <script>
+           document.getElementById('payButton').addEventListener('click', function() {
+               const email = 'abdulbasitquadri0@gmail.com'; // replace with the customer's email
+               const amount = 50000; // amount in kobo (e.g., 500 NGN)
+
+               // Initialize a transaction
+               fetch('http://localhost:500/initialize-transaction', {
+                   method: 'POST',
+                   headers: {
+                       'Content-Type': 'application/json',
+                   },
+                   body: JSON.stringify({ email, amount }),
+               })
+               .then(response => response.json())
+               .then(data => {
+                   if (data.status) {
+                       let handler = PaystackPop.setup({
+                           key: 'pk_test_7b7ed0b2a1f6b8c4eb40be429bdc0a0ae7438af6', // Replace with your public key
+                           email: email,
+                           amount: amount,
+                           reference: data.data.reference, // Use the reference returned from your server
+                           callback: function(response) {
+                               // Handle successful payment here
+                               alert('Payment successful! Reference: ' + response.reference);
+                           },
+                           onClose: function() {
+                               alert('Transaction was not completed, you can close this window.');
+                           }
+                       });
+                       handler.openIframe();
+                   } else {
+                       alert("Transaction initialization failed: " + data.message);
+                   }
+               })
+               .catch(error => {
+                   console.error('Error:', error);
+               });
+           });
+       </script>
+   </body>
+   </html>
