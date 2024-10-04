@@ -7,9 +7,9 @@ const paymentRoutes = require('./routes/payment');
 const premiumRoutes = require('./routes/premium');
 const User = require('./models/User');
 require('dotenv').config();
- const bodyParser = require('body-parser');
- const axios = require('axios')
- const cors = require('cors');
+const bodyParser = require('body-parser');
+const axios = require('axios')
+const cors = require('cors');
 
 
 const app = express()
@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 
     // Middleware
-    app.use(express.json());
+app.use(express.json());
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -42,12 +42,6 @@ mongoose.connect(process.env.MONGODB_URI, {
     email: "",
     password: '',
 });
-
-//saveUser(newUser);
-
-    // .then(() => console.log('MongoDB connected'))
-    // .catch(err => console.error(err));
-
     app.use(session({
         secret: process.env.SESSION_SECRET,
         resave: false,

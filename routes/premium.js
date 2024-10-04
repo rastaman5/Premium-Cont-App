@@ -2,7 +2,7 @@
 const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
-const authenticateJWT = require('../routes/auth'); // Ensure you have this middleware for JWT validation
+const authenticateJWT = require('../routes/auth'); 
 
 // Middleware to check if user is a subscriber
 const isSubscriber = async (req, res, next) => {
@@ -25,11 +25,7 @@ const isSubscriber = async (req, res, next) => {
 
         // User is subscribed; proceed to the next middleware/route handler
         next();
-    // const user = await User.findById(req.user._id);
-    // if (!user || !user.isSubscribed) {
-    //     return res.status(403).json({ error: 'Access denied, premium content only for subscribers' });
-    // }
-    // next();
+    
   } catch (error) {
     console.error('Error in isSubscriber middleware:', error);
     res.status(500).json({ error: 'Internal server error.' });

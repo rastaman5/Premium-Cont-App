@@ -4,6 +4,7 @@
        <meta charset="UTF-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.">
        <title>Paystack Integration</title>
+       <link rel="stylesheet" href="style.css">
        <script src="https://js.paystack.co/v1/inline.js"></script>;
    </head>
    <body>
@@ -15,7 +16,7 @@
                const amount = 50000; // amount in kobo (e.g., 500 NGN)
 
                // Initialize a transaction
-               fetch('http://localhost:500/initialize-transaction', {
+               fetch('http://localhost:500/api/payment/initialize-transaction', {
                    method: 'POST',
                    headers: {
                        'Content-Type': 'application/json',
