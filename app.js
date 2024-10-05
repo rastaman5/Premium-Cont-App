@@ -10,6 +10,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const axios = require('axios')
 const cors = require('cors');
+const uuid = require("uuid");
 
 
 const app = express()
@@ -60,4 +61,6 @@ app.use('/api/premium', premiumRoutes)
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+    console.log('Using Paystack Secret Key:', process.env.PAYSTACK_SECRET_KEY);
+
 });
