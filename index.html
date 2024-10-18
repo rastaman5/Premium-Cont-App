@@ -23,9 +23,14 @@
                    },
                    body: JSON.stringify({ email, amount }),
                })
-               .then(response => response.json())
+               .then(response => {
+                if (!response.ok) { // Check if response status is OK
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
                .then(data => {
-                   if (data.status) {
+                   if (data.paymentUrl) {
                        let handler = PaystackPop.setup({
                            key: 'pk_test_7b7ed0b2a1f6b8c4eb40be429bdc0a0ae7438af6', // Replace with your public key
                            email: email,

@@ -7,7 +7,7 @@ const paymentRoutes = require('./routes/payment');
 const premiumRoutes = require('./routes/premium');
 const User = require('./models/User');
 require('dotenv').config();
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const axios = require('axios')
 const cors = require('cors');
 const uuid = require("uuid");
@@ -15,7 +15,7 @@ const uuid = require("uuid");
 
 const app = express()
 app.use(cors())
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 
     // Middleware
@@ -58,9 +58,9 @@ app.use('/api/payment', paymentRoutes); // Use the new payment routes
 app.use('/api/premium', premiumRoutes)
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 500;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    console.log('Using Paystack Secret Key:', process.env.PAYSTACK_SECRET_KEY);
+    console.log('Using Paystack Secret Key:');
 
 });

@@ -2,7 +2,7 @@
 const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
-const authenticateJWT = require('../routes/auth'); 
+const authenticateJWT = require('./auth'); 
 
 // Middleware to check if user is a subscriber
 const isSubscriber = async (req, res, next) => {
