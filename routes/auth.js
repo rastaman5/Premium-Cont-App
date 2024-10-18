@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 // const mongoose= require('mongoose')
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-
+const authenticateJWT = require('../middlewares/authen')
 const router = express.Router()
 
 // Register a new user
@@ -53,21 +53,5 @@ router.post('/login', async (req, res) => {
     }
 });
 
-const authenticateJWT = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1];
-    if (!token) {
-        return res.sendStatus(403); // Forbidden
-    }
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) {
-            return res.sendStatus(403); // Forbidden
-        }
-        req.user = user; // Attach user information to the request object
-        next();
-    });
-};
-
-module.exports = authenticateJWT;
 
 module.exports = router;
