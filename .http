@@ -1,0 +1,13 @@
+
+POST http://127.0.0.1:500/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "markonuoha6@gmail.com",
+  "password": "Password1234@"
+}
+
+#### get Premium data
+GET http://127.0.0.1:500/api/premium/premium-content
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJmcmVlX3VzZXIiLCJpYXQiOjE3MjkwMjE0MzgsImV4cCI6MTcyOTAyNTAzOH0.ai9xJa23zfAA9XAohw0cMoqcXQzbCG9m7nkT1v5Ncrw

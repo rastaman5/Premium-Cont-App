@@ -2,7 +2,7 @@
 const express = require('express');
 // const User = require('../models/User');
 const router = express.Router();
-const authenticateJWT = require('./auth'); 
+const authenticateJWT = require('../middlewares/authen');  
 const isSubscriber = require('../middlewares/isSubscriber'); // Import the new isSubscriber middleware
 
 
