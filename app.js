@@ -10,33 +10,19 @@ const paymentRoutes = require('./routes/payment');
 const premiumRoutes = require('./routes/premium');
 const cors = require('cors');
 const { serverError, notFoundError } = require('./utils/responses');
-
+ 
 require('dotenv').config();
+
 const PORT = process.env.PORT || 500;
+
 const app = express()
+
 app.use(cors())
     // Middleware
 app.use(express.json());
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI)
-    
-//   const saveUser = async (userData) => {
-//     const user = new  User(userData);
-//     try {
-//         await user.save();
-//         console.log('User saved:', user);
-//     } catch (error) {
-//         console.error('Error saving user:', error);
-//     } finally {
-//         mongoose.connection.close();
-//     }
-//   }
-//   const newUser = new User({
-//     username: '',
-//     email: "",
-//     password: '',
-// });
     // app.use(session({
     //     secret: process.env.SESSION_SECRET,
     //     resave: false,
@@ -57,7 +43,6 @@ app.use(notFoundError);
 
 // Error handling middleware
 app.use(serverError)
-
 
 // Start the server
 app.listen(PORT, () => {

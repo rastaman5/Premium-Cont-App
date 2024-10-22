@@ -1,64 +1,53 @@
 <!DOCTYPE html>
-   <html lang="en">
-   <head>
-       <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.">
-       <title>Paystack Integration</title>
-       <link rel="stylesheet" href="style.css">
-       <script src="https://js.paystack.co/v1/inline.js"></script>;
-   </head>
-   <body>
-       <button id="payButton">Pay Now</button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.">
+    <title>Paystack Integration</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+</head>
+<body>
+    <button id="payButton">Pay Now</button>
 
-       <script>
-           document.getElementById('payButton').addEventListener('click', function() {
-            const email = prompt("Enter your email:"); 
-            const amount = prompt("Enter amount (in kobo):"); 
-
-               if (!email || !amount) {
+    <script>
+        document.getElementById('payButton').addEventListener('click', function() {
+            const email = prompt("Enter your email:");
+            const amount = prompt("Enter amount (in kobo):");
+    
+            // Validate input
+            if (!email || !amount) {
                 alert("Email and amount are required.");
                 return;
             }
-               // Initialize a transaction
-               fetch('http://localhost:500/api/payment/initialize-transaction', {
-                   method: 'POST',
-                   headers: {
-                       'Content-Type': 'application/json',
-                   },
-                   body: JSON.stringify({ email, amount: parseInt(amount) }),
-               })
-               .then(response => {
-                if (!response.ok) { // Check if response status is OK
-                    throw new Error(`Network response was not ok: ${response.status} - ${text}`);
+    
+            // Initialize a transaction
+            fetch('http://localhost:5000/api/payment/initialize-transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, amount: parseInt(amount) }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.status}`);
                 }
                 return response.json();
             })
-               .then(data => {
-                   if (data.paymentUrl) {
-                    window.location.href = data.paymentUrl;
-                    // let handler = PaystackPop.setup({
-                    //        key: 'pk_test_7b7ed0b2a1f6b8c4eb40be429bdc0a0ae7438af6', // Replace with your public key
-                    //        email: email,
-                    //        amount: amount,
-                    //        reference: data.data.reference, // Use the reference returned from your server
-                    //        callback: function(response) {
-                    //            // Handle successful payment here
-                    //            alert('Payment successful! Reference: ' + response.reference);
-                    //        },
-                    //        onClose: function() {
-                    //            alert('Transaction was not completed, you can close this window.');
-                    //        }
-                    //    });
-                    //    handler.openIframe();
-                   } else {
-                       alert("Transaction initialization failed: " + data.message);
-                   }
-               })
-               .catch(error => {
-                   console.error('Error:', error);
-                   alert("There was an error with the transaction: " + error.message);
-               });
-           });
-       </script>
-   </body>
-   </html>
+            .then(data => {
+                if (data.paymentUrl) {
+                    window.location.href = data.paymentUrl; // Redirect to payment URL
+                } else {
+                    alert("Transaction initialization failed: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("There was an error with the transaction: " + error.message);
+            });
+        });
+    </script>
+    
+</body>
+</html>
